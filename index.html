@@ -18,30 +18,44 @@
         margin: 5em;
     }
 
+    .container {
+
+        padding: 3em 5em 0 5em;
+    }
+
     .wrap-container {
         margin: 5em 15em;
         background-color: white;
         border-radius: 2%;
+
+    }
+
+    .btn-container {
+        padding: 2em 0 3em 0;
     }
 
     .required {
         color: red;
     }
+
+    #errorMessage {
+        color: red;
+    }
 </style>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
 
 <body>
     <div class="wrap-container">
-        <div>
+        <div class="container">
             <h3>Регистрация</h3>
             <p>Регистрация на сайте</p>
         </div>
+
         <form>
-            <div>
+            <div class="mb-3">
                 <label for="disabledSelect" class="form-label">Гражданство <span class="required">*</span></label>
-                <select id="disabledSelect" class="form-select">
-                    <option disabled selected="selected">Выбрать...</option>
+                <select id="SelectСitizenship" class="form-select" onChange="alert(this.value)">
+                    <option disabled selected="selected" value="select">Выбрать...</option>
                     <option value="">Российская Федерация</option>
                     <option value="">Абхазия</option>
                     <option value="">Азербайджан</option>
@@ -50,36 +64,103 @@
             </div>
 
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Фамилия <span class="required">*</span></label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="exampleInputSurname" class="form-label">Фамилия <span class="required">*</span></label>
+                <input type="email" class="form-control js-input" id="InputSurname" aria-describedby="emailHelp ">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Имя <span class="required">*</span></label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputName" class="form-label">Имя <span class="required">*</span></label>
+                <input type="password" class="form-control js-input" id="InputName">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Отчество (при наличии)</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputPatronymic" class="form-label">Отчество (при наличии)</label>
+                <input type="password" class="form-control js-input" id="InputPatronymic">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Email: <span class="required">*</span></label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputEmail" class="form-label">Email: <span class="required">*</span></label>
+                <input type="password" class="form-control js-input js-input-email" id="InputEmail">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Мобильный: <span class="required">*</span></label>
-                <input type="text" class="phone" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputTelephon" class="form-label">Мобильный <span class="required">*</span></label>
+                <input type="password" class="form-control js-input" id="InputTelephon">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Пароль: <span class="required">*</span></label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputPassword" class="form-label">Пароль: <span class="required">*</span></label>
+                <input type="password" class="form-control js-input" id="InputPassword">
             </div>
+
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Повторите пароль: <span
                         class="required">*</span></label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control js-input" id="InputPassword1">
             </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="CheckboxApproval">
+                <label class="form-check-label" for="defaultCheck1">
+                    Согласен на обработку своих персональных данных в порядке, установленным Федеральным законом от
+                    27.07.2006 г. № 152-Ф3 «О персональных данных».
+                </label>
+            </div>
+
+            <div class="d-grid mb-4  btn-container">
+                <button class="btn btn-primary" type="button" onclick="register()">Регистрация</button>
+            </div>
+            <div id="errorMessage"></div>
         </form>
     </div>
+    <script>
+        let InputSurname = document.getElementById("InputSurname");
+        let InputName = document.getElementById("InputName");
+        let InputTelephon = document.getElementById("InputTelephon");
+        let InputEmail = document.getElementById("InputEmail");
+        let InputPassword = document.getElementById("InputPassword");
+        let InputPassword1 = document.getElementById("InputPassword1");
+        let CheckboxApproval = document.getElementById("CheckboxApproval");
+        let SelectСitizenship = document.getElementById("SelectСitizenship");
+        let InputPatronymic = document.getElementById("InputPatronymic");
+
+
+        function register() {
+            document.getElementById("errorMessage").innerHTML = "";
+            if (
+                SelectСitizenship.value == "selected") {} else {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Необходимо выбрать гражданство<br>';
+            }
+            if (InputSurname.value != (/[а-яА-ЯЁё]/)) {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Поле "Фамилия" является обязательным для заполнения и может содержать только буквы русского алфавита<br>';
+            }
+            if (InputName.value != (/[а-яА-ЯЁё]/)) {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Поле "Имя" является обязательным для заполнения и может содержать только буквы русского алфавита<br>';
+            }
+            if (InputPatronymic.value != (/[а-яА-ЯЁё]/)) {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Поле "Отчество"  может содержать только буквы русского алфавита<br>';
+            }
+            if (InputEmail.value != (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/) || InputEmail == "") {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Поле "Почта" является обязательным для заполнения<br>';
+            }
+            if (InputTelephon.value != (/^[\d\+][\d\(\)\ -]{4,14}\d$/) || InputEmail == "") {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Поле "Телефон" является обязательным для заполнения<br>';
+            }
+            if (InputPassword.value < 8 || InputPassword.value == "") {
+                document.getElementById("errorMessage").innerHTML += "Пароль не может быть менее 8 символов <br>";
+            }
+            if (InputPassword1.value != InputPassword.value || InputPassword1.value == "") {
+                document.getElementById("errorMessage").innerHTML += "Пароли должны совпадать <br>";
+            }
+            if (
+                CheckboxApproval.checked) {} else {
+                document.getElementById("errorMessage").innerHTML +=
+                    'Необходимо согласиться с обработкой персональных данных<br>';
+            }
+
+
+        }
+    </script>
 </body>
 
 </html>
