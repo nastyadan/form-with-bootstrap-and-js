@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ra">
 
 <head>
     <meta charset="UTF-8">
@@ -8,41 +8,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Document</title>
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+
+        form {
+            margin: 5em;
+        }
+
+        .container {
+
+            padding: 3em 5em 0 5em;
+        }
+
+        .wrap-container {
+            margin: 5em 15em;
+            background-color: white;
+            border-radius: 2%;
+
+        }
+
+        .btn-container {
+            padding: 2em 0 3em 0;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .errorMessage {
+            color: red;
+        }
+    </style>
+
+
 </head>
-<style>
-    body {
-        background-color: lightgrey;
-    }
-
-    form {
-        margin: 5em;
-    }
-
-    .container {
-
-        padding: 3em 5em 0 5em;
-    }
-
-    .wrap-container {
-        margin: 5em 15em;
-        background-color: white;
-        border-radius: 2%;
-
-    }
-
-    .btn-container {
-        padding: 2em 0 3em 0;
-    }
-
-    .required {
-        color: red;
-    }
-
-    #errorMessage {
-        color: red;
-    }
-</style>
-
 
 <body>
     <div class="wrap-container">
@@ -51,48 +52,58 @@
             <p>Регистрация на сайте</p>
         </div>
 
-        <form>
+        <form name="main">
             <div class="mb-3">
                 <label for="disabledSelect" class="form-label">Гражданство <span class="required">*</span></label>
-                <select id="SelectСitizenship" class="form-select" onChange="alert(this.value)">
+                <select id="SelectСitizenship" class="form-select">
                     <option disabled selected="selected" value="select">Выбрать...</option>
-                    <option value="">Российская Федерация</option>
-                    <option value="">Абхазия</option>
-                    <option value="">Азербайджан</option>
-                    <option value="">Алжир</option>
+                    <option value="Ru">Российская Федерация</option>
+                    <option value="Ab">Абхазия</option>
+                    <option value="Az">Азербайджан</option>
+                    <option value="Al">Алжир</option>
                 </select>
             </div>
-
+            <div class="errorMessage" id="errorMessageForСitizenship"></div>
             <div class="mb-3">
                 <label for="exampleInputSurname" class="form-label">Фамилия <span class="required">*</span></label>
-                <input type="email" class="form-control js-input" id="InputSurname" aria-describedby="emailHelp ">
+                <input type="text" class="form-control js-input" id="InputSurname" aria-describedby="emailHelp"
+                    onblur="checkSurname()">
             </div>
+            <div class="errorMessage" id="errorMessageForSurname"></div>
             <div class="mb-3">
                 <label for="exampleInputName" class="form-label">Имя <span class="required">*</span></label>
-                <input type="password" class="form-control js-input" id="InputName">
+                <input type="text" class="form-control js-input" id="InputName" onblur="checkName()">
             </div>
+            <div class="errorMessage" id="errorMessageForName"></div>
             <div class="mb-3">
                 <label for="exampleInputPatronymic" class="form-label">Отчество (при наличии)</label>
-                <input type="password" class="form-control js-input" id="InputPatronymic">
+                <input type="text" class="form-control js-input" id="InputPatronymic" onblur="checkPatronymic()">
             </div>
+            <div class="errorMessage" id="errorMessageForPatronymic"></div>
             <div class="mb-3">
                 <label for="exampleInputEmail" class="form-label">Email: <span class="required">*</span></label>
-                <input type="password" class="form-control js-input js-input-email" id="InputEmail">
+                <input type="email" class="form-control js-input js-input-email" id="InputEmail" onblur="checkEmail()">
             </div>
+            <div class="errorMessage" id="errorMessageForEmail"></div>
             <div class="mb-3">
                 <label for="exampleInputTelephon" class="form-label">Мобильный <span class="required">*</span></label>
-                <input type="password" class="form-control js-input" id="InputTelephon">
+                <input type="tel" class="form-control js-input " id="InputTelephon" maxlength="13"
+                    onblur="checkTelephon()">
             </div>
+            <div class="errorMessage" id="errorMessageForTelephon"></div>
             <div class="mb-3">
                 <label for="exampleInputPassword" class="form-label">Пароль: <span class="required">*</span></label>
-                <input type="password" class="form-control js-input" id="InputPassword">
+                <input type="password" minlength="8" class="form-control js-input" id="InputPassword"
+                    onblur=" checkPassword()">
             </div>
-
+            <div class="errorMessage" id="errorMessageForPassword"></div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Повторите пароль: <span
                         class="required">*</span></label>
-                <input type="password" class="form-control js-input" id="InputPassword1">
+                <input type="password" minlength="8" class="form-control js-input" id="InputPassword1"
+                    onblur=" checkPassword1()">
             </div>
+            <div class="errorMessage" id="errorMessageForPassword1"></div>
             <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" value="" id="CheckboxApproval">
                 <label class="form-check-label" for="defaultCheck1">
@@ -100,11 +111,11 @@
                     27.07.2006 г. № 152-Ф3 «О персональных данных».
                 </label>
             </div>
-
+            <div class="errorMessage" id="errorMessageForApproval"></div>
             <div class="d-grid mb-4  btn-container">
-                <button class="btn btn-primary" type="button" onclick="register()">Регистрация</button>
+                <button class="btn btn-primary" type="button" onclick="checkForm()">Регистрация</button>
             </div>
-            <div id="errorMessage"></div>
+
         </form>
     </div>
     <script>
@@ -117,48 +128,126 @@
         let CheckboxApproval = document.getElementById("CheckboxApproval");
         let SelectСitizenship = document.getElementById("SelectСitizenship");
         let InputPatronymic = document.getElementById("InputPatronymic");
+        let validation = 0;
 
 
-        function register() {
-            document.getElementById("errorMessage").innerHTML = "";
-            if (
-                SelectСitizenship.value == "selected") {} else {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Необходимо выбрать гражданство<br>';
+
+        function checkSurname() {
+            document.getElementById("errorMessageForSurname").innerHTML = "";
+            if (InputSurname.value.match(/[а-яА-ЯЁё]/) || InputSurname.value == "") {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForSurname").innerHTML +=
+                    'Поле "Фамилия" является обязательным для заполнения и может содержать только буквы русского алфавита';
             }
-            if (InputSurname.value != (/[а-яА-ЯЁё]/)) {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Поле "Фамилия" является обязательным для заполнения и может содержать только буквы русского алфавита<br>';
+        }
+
+        function checkName() {
+            document.getElementById("errorMessageForName").innerHTML = "";
+            if (InputName.value.match(/[а-яА-ЯЁё]/) || InputName.value == "") {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForName").innerHTML +=
+                    'Поле "Имя" является обязательным для заполнения и может содержать только буквы русского алфавита';
             }
-            if (InputName.value != (/[а-яА-ЯЁё]/)) {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Поле "Имя" является обязательным для заполнения и может содержать только буквы русского алфавита<br>';
+        }
+
+        function checkPatronymic() {
+            document.getElementById("errorMessageForPatronymic").innerHTML = "";
+            if (InputPatronymic.value.match(/[а-яА-ЯЁё]/) || InputSurname.value == "") {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForPatronymic").innerHTML +=
+                    'Поле "Отчество"  может содержать только буквы русского алфавита';
             }
-            if (InputPatronymic.value != (/[а-яА-ЯЁё]/)) {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Поле "Отчество"  может содержать только буквы русского алфавита<br>';
+        }
+
+        function checkEmail() {
+
+
+            document.getElementById("errorMessageForEmail").innerHTML = "";
+            if (InputEmail.value.match(/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/) || InputEmail.value == "") {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForEmail").innerHTML +=
+                    'Некорректный адрес';
             }
-            if (InputEmail.value != (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/) || InputEmail == "") {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Поле "Почта" является обязательным для заполнения<br>';
+        }
+
+        function checkTelephon() {
+            document.getElementById("errorMessageForTelephon").innerHTML = "";
+            if (InputTelephon.value.match(/^[\d\+][\d\(\)\ -]{4,14}\d$/) || InputEmail.value == "") {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForTelephon").innerHTML +=
+                    'Некорректный номер';
             }
-            if (InputTelephon.value != (/^[\d\+][\d\(\)\ -]{4,14}\d$/) || InputEmail == "") {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Поле "Телефон" является обязательным для заполнения<br>';
+        }
+
+        function checkPassword() {
+            document.getElementById("errorMessageForPassword").innerHTML = "";
+            if (InputPassword.length > 8) {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForPassword").innerHTML +=
+                    "Пароль не может быть менее 8 символов ";
             }
-            if (InputPassword.value < 8 || InputPassword.value == "") {
-                document.getElementById("errorMessage").innerHTML += "Пароль не может быть менее 8 символов <br>";
-            }
+        }
+
+        function checkPassword1() {
+            document.getElementById("errorMessageForPassword1").innerHTML = "";
             if (InputPassword1.value != InputPassword.value || InputPassword1.value == "") {
-                document.getElementById("errorMessage").innerHTML += "Пароли должны совпадать <br>";
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForPassword1").innerHTML += "Пароли должны совпадать <br>";
             }
+        }
+
+        function checkForm() {
+            document.getElementById("errorMessageForСitizenship").innerHTML = "";
+            document.getElementById("errorMessageForApproval").innerHTML = "";
             if (
-                CheckboxApproval.checked) {} else {
-                document.getElementById("errorMessage").innerHTML +=
-                    'Необходимо согласиться с обработкой персональных данных<br>';
+                SelectСitizenship.value == "select") {
+                document.getElementById("errorMessageForСitizenship").innerHTML +=
+                    'Выберите гражданство';
+            } else {
+                validation += 1;
             }
-
-
+            if (InputSurname.value == "") {
+                document.getElementById("errorMessageForSurname").innerHTML +=
+                    'Введите фамилию';
+            }
+            if (InputName.value == "") {
+                document.getElementById("errorMessageForName").innerHTML +=
+                    'Введите имя';
+            }
+            if (InputEmail.value == "") {
+                document.getElementById("errorMessageForEmail").innerHTML +=
+                    'Введите почту';
+            }
+            if (InputTelephon.value == "") {
+                document.getElementById("errorMessageForTelephon").innerHTML +=
+                    'Введите телефон';
+            }
+            if (InputPassword.value == "") {
+                document.getElementById("errorMessageForPassword").innerHTML +=
+                    'Введите пароль';
+            }
+            if (InputPassword1.value == "") {
+                document.getElementById("errorMessageForPassword1").innerHTML +=
+                    'Подтвердите пароль';
+            }
+            if (CheckboxApproval.checked) {
+                validation += 1;
+            } else {
+                document.getElementById("errorMessageForApproval").innerHTML +=
+                    'Необходимо согласиться с обработкой персональных данных';
+            }
+            if (validation == 9) {
+                alert('Регистрация прошла успешно');
+            } else {
+                alert("Необходимо корректно заполнить все обязательные поля ")
+            }
         }
     </script>
 </body>
