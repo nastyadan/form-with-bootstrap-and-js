@@ -135,7 +135,7 @@
 
         function checkSurname() {
             document.getElementById("errorMessageForSurname").innerHTML = "";
-            if (InputSurname.value.match(/[а-яА-ЯЁё]/) || InputSurname.value == "") {
+            if (InputSurname.value.match(/^[а-яА-ЯёЁa\-\ ]+$/) || InputSurname.value == "") {
                 validation += 1;
             } else {
                 document.getElementById("errorMessageForSurname").innerHTML +=
@@ -145,7 +145,7 @@
 
         function checkName() {
             document.getElementById("errorMessageForName").innerHTML = "";
-            if (InputName.value.match(/[а-яА-ЯЁё]/) || InputName.value == "") {
+            if (InputName.value.match(/^[а-яА-ЯёЁa\-\ ]+$/) || InputName.value == "") {
                 validation += 1;
             } else {
                 document.getElementById("errorMessageForName").innerHTML +=
@@ -155,7 +155,7 @@
 
         function checkPatronymic() {
             document.getElementById("errorMessageForPatronymic").innerHTML = "";
-            if (InputPatronymic.value.match(/[а-яА-ЯЁё]/) || InputPatronymic.value == "") {
+            if (InputPatronymic.value.match(/^[а-яА-ЯёЁa\-\ ]+$/) || InputPatronymic.value == "") {
                 validation += 1;
             } else {
                 document.getElementById("errorMessageForPatronymic").innerHTML +=
