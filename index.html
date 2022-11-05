@@ -252,9 +252,33 @@
             }
             if (validation >= 8) {
                 alert('Регистрация прошла успешно');
+                let user = {
+                    citizenship: document.getElementById("SelectСitizenship").value,
+                    surname: document.getElementById("InputSurname").value,
+                    name: document.getElementById("InputName").value,
+                    patronymic: document.getElementById("InputPatronymic").value,
+                    telephon: document.getElementById("InputTelephon").value,
+                    email: document.getElementById("InputEmail").value,
+                    password: document.getElementById("InputPassword").value,
+
+                }
+                fetch('https://httpbin.org/post', {
+                        method: 'POST',
+                        body: JSON.stringify(user),
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(newInf => {
+                        console.log(user)
+                    })
+                    .catch(error => console.log(error))
             } else {
                 alert("Необходимо корректно заполнить все обязательные поля ")
             }
+
+
         }
     </script>
 </body>
